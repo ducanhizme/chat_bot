@@ -17,7 +17,6 @@ class CustomerAuthController extends BaseController
         if (!$token = auth()->guard('customer')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
