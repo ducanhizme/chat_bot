@@ -27,7 +27,7 @@ class CustomerAuthController extends BaseController
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
-        return $this->sendResponse($user, 'Customer registered successfully');
+        return $this->sendResponse($user, 'Customer registered successfully!!!');
     }
 
     public function logout()
