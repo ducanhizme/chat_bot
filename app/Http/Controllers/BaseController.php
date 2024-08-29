@@ -18,7 +18,7 @@ class BaseController extends IlluminateController
         return response()->json($response, 200);
     }
 
-    function sendErrorResponse($error=[], $errorMessages = [], $code = 404)
+    function sendErrorResponse($error, $errorMessages = [], $code = 404)
     {
         $response = [
             'error' => $error,

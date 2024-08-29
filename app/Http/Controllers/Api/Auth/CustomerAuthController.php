@@ -34,7 +34,7 @@ class CustomerAuthController extends BaseController
     {
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
-    }
+    }  
 
     public function profile(){
         return response()->json(auth()->user());
