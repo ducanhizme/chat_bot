@@ -17,7 +17,6 @@ class CustomerAuthController extends BaseController
         if (!$token = auth()->guard('customer')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
@@ -28,7 +27,7 @@ class CustomerAuthController extends BaseController
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
-        return $this->sendResponse($user, 'Customer registered successfully');
+        return $this->sendResponse($user, 'Customer registered successfully!!!');
     }
 
     public function logout()
