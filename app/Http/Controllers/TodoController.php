@@ -28,14 +28,9 @@ class TodoController extends BaseController
      */
     public function store(CreateToDoRequest $request)
     {
-
-        try {
             $validated = $request->validated();
             $todo = Todo::create($validated);
             return $this->sendResponse(new TodoResource($todo), "Todo created successfully", 201);
-        } catch (\Exception $e) {
-            return $this->sendErrorResponse($e->getMessage(), "Can't create todo", 500);
-        }
     }
 
     /**
