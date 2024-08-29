@@ -19,7 +19,8 @@ class TodoController extends BaseController
      */
     public function index()
     {
-        return $this->sendResponse(TodoResource::collection(Todo::all()), "Todos retrieved successfully", 200);
+        $todos = Todo::with('status')->get();
+        return $this->sendResponse(TodoResource::collection($todos), "Todos retrieved successfully", 200);
     }
 
     /**
@@ -30,12 +31,7 @@ class TodoController extends BaseController
 
         try {
             $validated = $request->validated();
-            $todo = new Todo();
-            $todo->title = $validated['title'];
-            $todo->description = $validated['description'];
-            $todo->status_id = $validated['status_id'];
-            $todo->user_id = $request->user()->id;
-            $todo->save();
+            $todo = Todo::create($validated);
             return $this->sendResponse(new TodoResource($todo), "Todo created successfully", 201);
         } catch (\Exception $e) {
             return $this->sendErrorResponse($e->getMessage(), "Can't create todo", 500);
@@ -56,10 +52,7 @@ class TodoController extends BaseController
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
         $validated = $request->validated();
-        $todo->title = $validated['title'];
-        $todo->description = $validated['description'];
-        $todo->status_id = $validated['status_id'];
-        $todo->save();
+        $todo->update($validated);
         return $this->sendResponse(new TodoResource($todo), "Todo updated successfully", 200);
     }
 
